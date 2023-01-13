@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Linq;
+
 
 namespace myList
 {
@@ -41,6 +38,14 @@ namespace myList
                 foreach (T item in Collection)
                     this.Add(item);
         }
+
+/*        public bool WeakCheck()
+        {
+            IEnumerable ie = (ICollection)(this);
+            foreach (T item in ie)
+                break;
+            return true;
+        }*/
 
         // add node to the end of the list (head.prev)
         private void AddAfter(myNode<T> newNode)
@@ -165,7 +170,7 @@ namespace myList
             return new ListEnumerator(this);
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return new ListEnumerator(this);
         }
@@ -244,7 +249,7 @@ namespace myList
         }
 
         // enumerator for list
-        internal class ListEnumerator : IEnumerator<T>
+        internal class ListEnumerator : IEnumerator<T>, System.Collections.IEnumerator
         {
             private myList<T> myList;
             private int index;

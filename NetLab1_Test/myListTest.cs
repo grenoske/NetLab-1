@@ -95,6 +95,53 @@ namespace NetLab1_Test
         }
 
         [Fact]
+        public void Enumerator_notCorrectIteration2_NotReturn()
+        {
+            // Arrange
+            var mylist = new myList<int>();
+
+            // Act
+            var enumerator = mylist.AsEnumerable().GetEnumerator();
+            enumerator.Reset();
+            enumerator.MoveNext();
+            object a;
+            System.Action action = new Action(() => a = ((System.Collections.IEnumerator)enumerator).Current);
+
+            //Assert
+            action.Should().Throw<ArgumentException>();
+        }
+
+        [Fact]
+        public void GetNonGenericEnumerator_NOTErrorReturn()
+        {
+            // Arrange
+            myList<int> mylist = new myList<int>() { 1, 2, 3 };
+
+
+            // Act
+            var res = ((IEnumerable)mylist).GetEnumerator();
+
+            // Assert
+            res.Should().NotBeOfType<Exception>();
+        }
+
+        [Fact]
+        public void Enumerator_notCorrectIteration3_notErorr()
+        {
+            // Arrange
+            var mylist = new myList<int>() { 1, 2 };
+
+            // Act
+            var enumerator = mylist.AsEnumerable().GetEnumerator();
+            enumerator.MoveNext();
+            int a = 0;
+            a = (int)((System.Collections.IEnumerator)enumerator).Current;
+
+            //Assert
+            a.Should().Be(1);
+        }
+
+        [Fact]
         public void IndexOf_SecondElementInList_1Returned()
         {
             // Arrange
